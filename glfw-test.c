@@ -1,5 +1,6 @@
 #include <GLFW/glfw3.h>
 #include <stdio.h>
+#include <unistd.h>
 
 void errorCallback(int error, const char* description);
 
@@ -15,7 +16,7 @@ int main()
 	    printf("failed to create window", stderr);
 	glfwMakeContextCurrent(window);
 	while (!glfwWindowShouldClose(window)) {
-	    // Keep running
+		sleep(0.02f); // arbitrary wait period to reduce cpu load
 	}
 	glfwDestroyWindow(window);
 	glfwTerminate();
