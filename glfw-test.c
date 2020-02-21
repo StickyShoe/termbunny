@@ -1,6 +1,6 @@
-#include <GLFW/glfw3.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <GLFW/glfw3.h>
 
 void errorCallback(int error, const char* description);
 
@@ -17,6 +17,7 @@ int main()
 	glfwMakeContextCurrent(window);
 	while (!glfwWindowShouldClose(window)) {
 		sleep(0.02f); // arbitrary wait period to reduce cpu load
+		glfwPollEvents();
 	}
 	glfwDestroyWindow(window);
 	glfwTerminate();
