@@ -13,6 +13,6 @@ clean:
 	rm -f *.o
 
 test: main.o
-	./main.o
+	watch -n 0.1 ./main.o
 
 .PHONY: all clean test
