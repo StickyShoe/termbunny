@@ -4,7 +4,7 @@ MANPREFIX = $(PREFIX)/share/man
 all: main.o
 
 %.o: %.c
-	$(CC) -o $@ $<
+	$(CC) -o $@ $< -lm
 
 %.gz: %
 	gzip $<
