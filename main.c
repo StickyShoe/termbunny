@@ -7,7 +7,7 @@
 
 int timeout() {
 	struct timespec tim,rem;
-	tim.tv_nsec=100000000L;
+	tim.tv_nsec=20000000L;
 	tim.tv_sec=0;
 	nanosleep(&tim,&rem);
 	return 0;	
@@ -59,20 +59,26 @@ void draw(imat2 *screen) {
 	}
 }
 
-
 int main(int argc, char **argv) {
-	clearscreen();
-	ivec2 bounds = getScreenSize();
+	ivec2 bounds;
 
-	//printf("Screen width: %i  Screen height: %i\n", bounds.x, bounds.y);
-	imat2 screen = newMatrix(bounds, 0);
-	circle(&screen, (ivec2){20,20}, 18, 1);
-	circle(&screen, (ivec2){bounds.x/2, bounds.y/2}, bounds.y/2, 1);
-	circle(&screen, (ivec2){bounds.x/4, bounds.y/2 - 3}, 10, 1);
-	circle(&screen, (ivec2){bounds.x - 10, bounds.y - 10}, 8, 4);
-	circle(&screen, (ivec2){bounds.x/2, bounds.y/2}, bounds.y/2 - 5, 2);
-	circle(&screen, (ivec2){bounds.x/2, bounds.y/2}, bounds.y/2 - 12, -3);
-	//printMatrix(&screen);
-	draw(&screen);
+	for(;;) {
+		ivec2 nbounds = getScreenSize();
+		if (nbounds.x != bounds.x || nbounds.y != bounds.y) {
+			bounds = nbounds;	
+			//printf("Screen width: %i  Screen height: %i\n", bounds.x, bounds.y);
+			imat2 screen = newMatrix(bounds, 0);
+			circle(&screen, (ivec2){20,20}, 18, 1);
+			circle(&screen, (ivec2){bounds.x/2, bounds.y/2}, bounds.y/2, 1);
+			circle(&screen, (ivec2){bounds.x/4, bounds.y/2 - 3}, 10, 1);
+			circle(&screen, (ivec2){bounds.x - 10, bounds.y - 10}, 8, 4);
+			circle(&screen, (ivec2){bounds.x/2, bounds.y/2}, bounds.y/2 - 5, 2);
+			circle(&screen, (ivec2){bounds.x/2, bounds.y/2}, bounds.y/2 - 12, -3);
+			//printMatrix(&screen);
+			clearscreen();
+			draw(&screen);
+		}
+		timeout();
+	}
 	return 0;
 }
